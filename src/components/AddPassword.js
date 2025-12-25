@@ -15,11 +15,11 @@ export default function AddPassword({ vault, masterPassword, onUpdate }) {
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState("error"); // Add toast type state
   const [status, setStatus] = useState("Fill in the details");
-  
+
   useEffect(() => {
     getCurrentDomain().then(setSite);
   }, [])
-  
+
   const showToast = (msg, type = "error") => { // Accept type parameter
     setToastMessage(msg);
     setToastType(type);
@@ -64,17 +64,19 @@ export default function AddPassword({ vault, masterPassword, onUpdate }) {
   return (
     <>
       <style>{keyframes}</style>
-      
+
       {!open && (
-        <button 
-          className="secondary" 
+        <div style={styles.container}>
+        <button
+          className="secondary"
           onClick={() => setOpen(true)}
           style={styles.openButton}
         >
-          ➕ Add Password
+          Add Password ➕
         </button>
+        </div>
       )}
-      
+
       {open && (
         <div style={styles.container}>
           <div style={styles.bgEffects}>
@@ -120,7 +122,7 @@ export default function AddPassword({ vault, masterPassword, onUpdate }) {
                 onClick={() => setShowPassword(!showPassword)}
                 style={styles.eyeButton}
               >
-                {showPassword ? '☁️' : '✨'}
+                {showPassword ? <img src="hidepassword.png" alt="hide password" style={{ width: '34px', height: '34px', verticalAlign: 'middle' }} /> : <img src="showpassword.png" alt="show password" style={{ width: '34px', height: '34px', verticalAlign: 'middle' }} />}
               </button>
             </div>
 
@@ -141,7 +143,11 @@ export default function AddPassword({ vault, masterPassword, onUpdate }) {
                 cursor: (saving || !site.trim() || !password.trim()) ? 'default' : 'pointer'
               }}
             >
-              {saving ? "please wait..." : "save password"}
+          {saving ? "please wait..."    // ← This is checked FIRST
+  : password.length === 0 ? "save password"
+  : password.length < 4 ? "too short"
+  : password.length < 12 ? "almost there"
+  : "let's save it 👍"}
             </button>
 
             {!saving && (
@@ -182,12 +188,26 @@ const keyframes = `
 `;
 
 const styles = {
-  openButton: {
-    position: 'relative',
-    zIndex: 1
-  },
+
+ openButton: {
+  position: 'relative',
+  zIndex: 1,
+  width: '100%',
+  maxWidth: '280px',
+  padding: '14px',
+  background: '#10b981',         
+  borderRadius: '16px',
+  border: 'none',
+  color: '#ffffff',
+  fontSize: '15px',
+  fontWeight: '600',
+  boxShadow: '0 4px 16px rgba(16, 185, 129, 0.3)',
+  cursor: 'pointer',
+  fontFamily: '"Ubuntu","Segoe UI", Roboto, sans-serif'
+},
+
   container: {
-    width: '100%',
+    width: '100vh',
     height: '100%',
     backgroundColor: '#0f172a',
     display: 'flex',

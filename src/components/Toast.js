@@ -39,7 +39,7 @@ export default function Toast({ message, type = 'error' }) {
           background: currentStyle.gradient,
           boxShadow: `0 0 30px ${currentStyle.glow}`
         }}></div>
-        
+
         {/* Main content */}
         <div style={{
           ...contentStyle,
@@ -49,11 +49,11 @@ export default function Toast({ message, type = 'error' }) {
           <div style={iconWrapperStyle}>
             <span style={iconStyle}>{currentStyle.icon}</span>
           </div>
-          
+
           {/* Message */}
           <span style={messageStyle}>{message}</span>
         </div>
-        
+
         {/* Circuit lines decoration */}
         <div style={circuitLeftStyle}></div>
         <div style={circuitRightStyle}></div>
@@ -107,30 +107,29 @@ const contentStyle = {
   position: 'relative',
   display: 'flex',
   alignItems: 'center',
-  gap: '10px',
-  padding: '12px 16px',
+  gap: '8px',
+  padding: '10px 12px',
   borderRadius: '8px',
   color: 'white',
-  fontSize: '14px',
+  fontSize: '13px',
   boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)',
   border: '1px solid rgba(255, 255, 255, 0.2)',
-  minWidth: '280px',
-  maxWidth: '350px'
+  maxWidth: '260px'
 };
 
 const iconWrapperStyle = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  width: '24px',
-  height: '24px',
+  width: '20px',
+  height: '20px',
   borderRadius: '50%',
   backgroundColor: 'rgba(255, 255, 255, 0.2)',
   flexShrink: 0
 };
 
 const iconStyle = {
-  fontSize: '16px',
+  fontSize: '14px',
   fontWeight: 'bold'
 };
 

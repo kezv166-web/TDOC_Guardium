@@ -193,7 +193,7 @@ export default function Vault({ vault, masterKey, onUpdate }) {
         <div style={styles.searchWrapper}>
           <input
             type="text"
-            placeholder="Search vault..."
+            placeholder="Search vault"
             style={styles.searchInput}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -255,11 +255,17 @@ const styles = {
   },
   title: { fontSize: '32px', fontWeight: '700', margin: 0, color: '#e2e8f0' },
   status: { color: '#64748b', fontSize: '15px', margin: '-8px 0 8px 0', textAlign: 'center' },
-  searchWrapper: { position: 'relative', width: '100%', maxWidth: '280px' },
-  searchInput: {
-    width: '100%', padding: '12px 36px 12px 16px', backgroundColor: '#1e293b',
-    borderRadius: '16px', color: '#e2e8f0', border: '1px solid #334155', outline: 'none',
-    textAlign: 'center'
+  searchWrapper: { position: 'relative', width: '100%', maxWidth: '210px' },
+ searchInput: {
+  width: '100%', 
+  padding: '12px 36px 12px 16px', 
+  backgroundColor: '#1e293b',
+  borderRadius: '16px', 
+  color: '#e2e8f0', 
+  border: '1px solid #334155', 
+  outline: 'none',
+  textAlign: 'center',
+  boxSizing: 'border-box'
   },
   clearButton: {
     position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)',

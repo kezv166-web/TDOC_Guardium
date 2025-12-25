@@ -45,12 +45,14 @@ gulp.task('copy-manifest', function () {
       './popup.html',
       './background.js',
       './contextScript.js',
-      './logo192.png'
-      ,'./logo.jpeg'
+      './logo192.png',
+      './logo.jpeg',
+      './src/components/showpassword.png',
+      './src/components/hidepassword.png'
     ],
     { allowEmpty: true }
   )
-  .pipe(gulp.dest(config.root));
+    .pipe(gulp.dest(config.root));
 });
 
 // gulp.task('copy-contentScript', function (done) {

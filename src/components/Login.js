@@ -113,7 +113,7 @@ export default function Login({ onUnlock }) {
   return (
     <div style={styles.container}>
       <style>{keyframes}</style>
-      
+
       <div style={styles.bgEffects}>
         <div style={styles.colorBlur}></div>
       </div>
@@ -121,7 +121,7 @@ export default function Login({ onUnlock }) {
       <div style={styles.content}>
         <h1 style={styles.title}>{vaultExists ? "Welcome back!" : "New Vault"}</h1>
         <p style={styles.status}>{status}</p>
-        
+
         <div style={styles.inputWrapper}>
           <input
             type={showPassword ? "text" : "password"}
@@ -137,7 +137,7 @@ export default function Login({ onUnlock }) {
             onClick={() => setShowPassword(!showPassword)}
             style={styles.eyeButton}
           >
-            {showPassword ? '☁️' : '✨'}
+            {showPassword ? <img src="hidepassword.png" alt="hide password" style={{ width: '34px', height: '34px', verticalAlign: 'middle' }} /> : <img src="showpassword.png" alt="show password" style={{ width: '34px', height: '34px', verticalAlign: 'middle' }} />}
           </button>
         </div>
 
@@ -158,21 +158,28 @@ export default function Login({ onUnlock }) {
             cursor: (processing || password.length < 8) ? 'default' : 'pointer'
           }}
         >
-          {processing ? "please wait..." : vaultExists ? "unlock" : "create"}
+          {processing ? "please wait..." : vaultExists 
+            ? (password.length >= 8 ? "unlock 🔓" : "locked 🔐") 
+            : password.length === 0 ? "create"
+            : password.length < 4 ? "too short"
+            : password.length < 8 ? "almost there"
+            : "let's create 👍"}
         </button>
 
-        {!processing && (
-          <button
-            onClick={() => {
-              setVaultExists((prev) => !prev);
-              setStatus(!vaultExists ? "Unlock your Vault" : "Create Master Password");
-              setPassword("");
-            }}
-            style={styles.toggleButton}
-          >
-            {vaultExists ? "switch to create" : "already have one?"}
-          </button>
-        )}
+        <button
+          onClick={() => {
+            setVaultExists((prev) => !prev);
+            setStatus(!vaultExists ? "Unlock your Vault" : "Create Master Password");
+            setPassword("");
+          }}
+          style={{
+            ...styles.toggleButton,
+            visibility: processing ? 'hidden' : 'visible'
+          }}
+          disabled={processing}
+        >
+          {vaultExists ? "switch to create" : "already have one?"}
+        </button>
       </div>
 
       {toastMessage && <Toast message={toastMessage} type={toastType} />}
