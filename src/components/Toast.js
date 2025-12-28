@@ -5,23 +5,23 @@ export default function Toast({ message, type = 'error' }) {
 
   const styles = {
     error: {
-      gradient: 'linear-gradient(135deg, #dc2626, #991b1b)',
-      glow: 'rgba(220, 38, 38, 0.4)',
+      gradient: 'linear-gradient(135deg, #ef4444, #dc2626)',
+      glow: 'rgba(239, 68, 68, 0.4)',
       icon: '✕'
     },
     success: {
-      gradient: 'linear-gradient(135deg, #16a34a, #15803d)',
-      glow: 'rgba(22, 163, 74, 0.4)',
+      gradient: 'linear-gradient(135deg, #2ecc71, #27ae60)',
+      glow: 'rgba(46, 204, 113, 0.4)',
       icon: '✓'
     },
     warning: {
-      gradient: 'linear-gradient(135deg, #ca8a04, #a16207)',
-      glow: 'rgba(202, 138, 4, 0.4)',
+      gradient: 'linear-gradient(135deg, #f59e0b, #d97706)',
+      glow: 'rgba(245, 158, 11, 0.4)',
       icon: '⚠'
     },
     info: {
-      gradient: 'linear-gradient(135deg, #2563eb, #1d4ed8)',
-      glow: 'rgba(37, 99, 235, 0.4)',
+      gradient: 'linear-gradient(135deg, #8b5cf6, #7c3aed)',
+      glow: 'rgba(139, 92, 246, 0.4)',
       icon: 'ℹ'
     }
   };

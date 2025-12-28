@@ -145,7 +145,7 @@ export default function Login({ onUnlock }) {
           <div style={{
             ...styles.strengthFill,
             width: `${Math.min((password.length / 8) * 100, 100)}%`,
-            background: password.length >= 8 ? '#10b981' : '#334155'
+            background: password.length >= 8 ? '#00d4ff' : '#2a3548'
           }}></div>
         </div>
 
@@ -158,12 +158,12 @@ export default function Login({ onUnlock }) {
             cursor: (processing || password.length < 8) ? 'default' : 'pointer'
           }}
         >
-          {processing ? "please wait..." : vaultExists 
-            ? (password.length >= 8 ? "unlock 🔓" : "locked 🔐") 
+          {processing ? "please wait..." : vaultExists
+            ? (password.length >= 8 ? "unlock 🔓" : "locked 🔐")
             : password.length === 0 ? "create"
-            : password.length < 4 ? "too short"
-            : password.length < 8 ? "almost there"
-            : "let's create 👍"}
+              : password.length < 4 ? "too short"
+                : password.length < 8 ? "almost there"
+                  : "let's create 👍"}
         </button>
 
         <button
@@ -205,7 +205,7 @@ const styles = {
   container: {
     width: '100vh',
     height: '100%',
-    backgroundColor: '#0f172a',
+    backgroundColor: '#0a0f1a',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -227,7 +227,7 @@ const styles = {
     transform: 'translateX(-50%)',
     width: '300px',
     height: '300px',
-    backgroundColor: '#10b981',
+    backgroundColor: '#00d4ff',
     borderRadius: '50%',
     filter: 'blur(80px)',
     opacity: 0.15,
@@ -246,7 +246,7 @@ const styles = {
     fontSize: '32px',
     fontWeight: '700',
     margin: 0,
-    color: '#e2e8f0',
+    color: '#f8fafc',
     letterSpacing: '-0.02em'
   },
   status: {
@@ -263,10 +263,10 @@ const styles = {
   input: {
     width: '100%',
     padding: '12px 16px',
-    backgroundColor: '#1e293b',
+    backgroundColor: '#151d2e',
     borderRadius: '16px',
-    color: '#e2e8f0',
-    border: '1px solid #334155',
+    color: '#f8fafc',
+    border: '1px solid #2a3548',
     outline: 'none',
     fontSize: '14px',
     boxSizing: 'border-box',
@@ -287,7 +287,7 @@ const styles = {
     height: '4px',
     width: '100%',
     maxWidth: '200px',
-    backgroundColor: '#1e293b',
+    backgroundColor: '#151d2e',
     borderRadius: '10px',
     overflow: 'hidden'
   },
@@ -299,13 +299,13 @@ const styles = {
     width: '100%',
     maxWidth: '280px',
     padding: '14px',
-    background: '#10b981',
+    background: '#00d4ff',
     borderRadius: '16px',
     border: 'none',
-    color: '#ffffff',
+    color: '#0a0f1a',
     fontSize: '15px',
     fontWeight: '600',
-    boxShadow: '0 4px 16px rgba(16, 185, 129, 0.3)',
+    boxShadow: '0 4px 16px rgba(0, 212, 255, 0.3)',
     transition: 'all 0.3s ease'
   },
   toggleButton: {
@@ -320,8 +320,8 @@ const styles = {
   spinner: {
     width: '24px',
     height: '24px',
-    border: '3px solid #1e293b',
-    borderTop: '3px solid #10b981',
+    border: '3px solid #151d2e',
+    borderTop: '3px solid #00d4ff',
     borderRadius: '50%',
     animation: 'spin 0.8s linear infinite'
   }

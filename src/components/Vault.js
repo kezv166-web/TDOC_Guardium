@@ -7,14 +7,14 @@ import { getCurrentDomain } from "../utils/Tabs";
 export default function Vault({ vault, masterKey, onUpdate }) {
   const [domain, setDomain] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
-  const [pendingData, setPendingData] = useState(null); 
+  const [pendingData, setPendingData] = useState(null);
   const [localAccounts, setLocalAccounts] = useState([]);
   const [isSaving, setIsSaving] = useState(false); // New state to track saving progress
-// 1. Initialize Accounts & Sync to Session
+  // 1. Initialize Accounts & Sync to Session
   useEffect(() => {
     const initialAccounts = Array.isArray(vault) ? vault : (vault?.accounts || []);
     setLocalAccounts(initialAccounts);
-    
+
     // ✅ FIX: Push unlocked vault to Session Storage so Background Script can see it!
     if (typeof chrome !== "undefined" && chrome.storage && chrome.storage.session) {
       chrome.storage.session.set({ unlockedVault: initialAccounts });
@@ -51,7 +51,7 @@ export default function Vault({ vault, masterKey, onUpdate }) {
   // 🔒 THE FIXED SAVE FUNCTION (Integrity + Storage)
   // const handleSave = async () => {
   //   if (!pendingData) return;
-    
+
   //   setIsSaving(true);
   //   showToast("Encrypting...", "info");
 
@@ -86,9 +86,9 @@ export default function Vault({ vault, masterKey, onUpdate }) {
   //     // E. Update UI & Cleanup
   //     setLocalAccounts(updatedAccounts);
   //     if (onUpdate) onUpdate(fullVaultData);
-      
+
   //     showToast("Saved & Verified on Chain!", "success");
-      
+
   //     // Remove from queue
   //     setPendingData(null);
   //     chrome.storage.local.remove("pendingLogin");
@@ -111,7 +111,7 @@ export default function Vault({ vault, masterKey, onUpdate }) {
   // };
 
   // --- FILTERING & ACTIONS ---
-  
+
   const visibleAccounts = localAccounts.filter(account => {
     const searchLower = searchQuery.toLowerCase();
     if (searchQuery) {
@@ -121,8 +121,8 @@ export default function Vault({ vault, masterKey, onUpdate }) {
       );
     }
     if (!domain) return true;
-    return domain.toLowerCase().includes(account.site.toLowerCase()) || 
-           account.site.toLowerCase().includes(domain.toLowerCase());
+    return domain.toLowerCase().includes(account.site.toLowerCase()) ||
+      account.site.toLowerCase().includes(domain.toLowerCase());
   });
 
   const autofill = (username, password, site) => {
@@ -165,16 +165,16 @@ export default function Vault({ vault, masterKey, onUpdate }) {
               </div>
             </div>
             <div style={styles.pendingActions}>
-              <button 
-                onClick={handleDiscard} 
+              <button
+                onClick={handleDiscard}
                 style={styles.discardButton}
                 disabled={isSaving}
               >
                 Discard
               </button>
-              <button 
-                onClick={handleSave} 
-                style={{...styles.saveButton, opacity: isSaving ? 0.7 : 1}}
+              <button
+                onClick={handleSave}
+                style={{ ...styles.saveButton, opacity: isSaving ? 0.7 : 1 }}
                 disabled={isSaving}
               >
                 {isSaving ? "Syncing..." : "Save to Vault"}
@@ -185,7 +185,7 @@ export default function Vault({ vault, masterKey, onUpdate }) {
 
         {/* STATUS & SEARCH */}
         <p style={styles.status}>
-          {visibleAccounts.length > 0 
+          {visibleAccounts.length > 0
             ? `${visibleAccounts.length} login${visibleAccounts.length !== 1 ? 's' : ''} found`
             : "No logins found"}
         </p>
@@ -222,7 +222,7 @@ export default function Vault({ vault, masterKey, onUpdate }) {
           ))}
         </div>
       </div>
-      
+
       {toast.msg && <Toast message={toast.msg} type={toast.type} />}
     </div>
   );
@@ -232,7 +232,7 @@ const styles = {
   container: {
     width: '100vh',
     height: '100%',
-    backgroundColor: '#0f172a',
+    backgroundColor: '#0a0f1a',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -245,7 +245,7 @@ const styles = {
   bgEffects: { position: 'absolute', inset: 0, pointerEvents: 'none' },
   colorBlur: {
     position: 'absolute', top: '20%', left: '50%', transform: 'translateX(-50%)',
-    width: '300px', height: '300px', backgroundColor: '#10b981', borderRadius: '50%',
+    width: '300px', height: '300px', backgroundColor: '#00d4ff', borderRadius: '50%',
     filter: 'blur(80px)', opacity: 0.15, animation: 'pulse 4s infinite ease-in-out'
   },
   content: {
@@ -253,19 +253,19 @@ const styles = {
     display: 'flex', flexDirection: 'column', alignItems: 'center',
     gap: '16px', maxHeight: '100%', overflow: 'hidden'
   },
-  title: { fontSize: '32px', fontWeight: '700', margin: 0, color: '#e2e8f0' },
-  status: { color: '#64748b', fontSize: '15px', margin: '-8px 0 8px 0', textAlign: 'center' },
+  title: { fontSize: '32px', fontWeight: '700', margin: 0, color: '#f8fafc' },
+  status: { color: '#94a3b8', fontSize: '15px', margin: '-8px 0 8px 0', textAlign: 'center' },
   searchWrapper: { position: 'relative', width: '100%', maxWidth: '210px' },
- searchInput: {
-  width: '100%', 
-  padding: '12px 36px 12px 16px', 
-  backgroundColor: '#1e293b',
-  borderRadius: '16px', 
-  color: '#e2e8f0', 
-  border: '1px solid #334155', 
-  outline: 'none',
-  textAlign: 'center',
-  boxSizing: 'border-box'
+  searchInput: {
+    width: '100%',
+    padding: '12px 36px 12px 16px',
+    backgroundColor: '#151d2e',
+    borderRadius: '16px',
+    color: '#f8fafc',
+    border: '1px solid #2a3548',
+    outline: 'none',
+    textAlign: 'center',
+    boxSizing: 'border-box'
   },
   clearButton: {
     position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)',
@@ -276,38 +276,38 @@ const styles = {
     gap: '12px', overflowY: 'auto', maxHeight: '400px', paddingRight: '4px'
   },
   vaultItem: {
-    backgroundColor: '#1e293b', borderRadius: '12px', border: '1px solid #334155',
+    backgroundColor: '#151d2e', borderRadius: '12px', border: '1px solid #2a3548',
     padding: '14px', display: 'flex', flexDirection: 'column', gap: '12px',
     animation: 'slideUp 0.3s ease-out'
   },
   itemTop: { display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
   siteInfo: { flex: 1, minWidth: 0 },
-  siteName: { color: '#e2e8f0', fontSize: '15px', fontWeight: '600', margin: 0 },
+  siteName: { color: '#f8fafc', fontSize: '15px', fontWeight: '600', margin: 0 },
   username: { color: '#64748b', fontSize: '13px', margin: '4px 0 0 0' },
   actionButtons: { display: 'flex', gap: '6px', width: '100%' },
   actionButton: {
     flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center',
-    padding: '8px', backgroundColor: 'rgba(15, 23, 42, 0.5)', border: '1px solid #334155',
-    borderRadius: '10px', color: '#64748b', fontSize: '12px', cursor: 'pointer'
+    padding: '8px', backgroundColor: 'rgba(10, 15, 26, 0.5)', border: '1px solid #2a3548',
+    borderRadius: '10px', color: '#94a3b8', fontSize: '12px', cursor: 'pointer'
   },
   primaryButton: {
     flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center',
-    padding: '8px', background: '#10b981', border: 'none', borderRadius: '10px',
-    color: '#ffffff', fontSize: '12px', fontWeight: '600', cursor: 'pointer'
+    padding: '8px', background: '#00d4ff', border: 'none', borderRadius: '10px',
+    color: '#0a0f1a', fontSize: '12px', fontWeight: '600', cursor: 'pointer'
   },
   // PENDING CARD STYLES
   pendingCard: {
-    width: '100%', maxWidth: '320px', backgroundColor: '#1e293b', borderRadius: '12px',
-    padding: '12px', border: '1px solid #3b82f6', boxShadow: '0 4px 12px rgba(59, 130, 246, 0.2)',
+    width: '100%', maxWidth: '320px', backgroundColor: '#151d2e', borderRadius: '12px',
+    padding: '12px', border: '1px solid #8b5cf6', boxShadow: '0 4px 12px rgba(139, 92, 246, 0.2)',
     marginBottom: '8px', animation: 'slideIn 0.3s ease-out'
   },
   pendingHeader: { display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' },
   pendingIcon: { fontSize: '20px' },
-  pendingTitle: { color: '#3b82f6', fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', margin: 0 },
+  pendingTitle: { color: '#8b5cf6', fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', margin: 0 },
   pendingSite: { color: '#ffffff', fontSize: '14px', fontWeight: '600', margin: 0 },
   pendingActions: { display: 'flex', gap: '8px' },
   saveButton: {
-    flex: 1, background: '#3b82f6', color: 'white', border: 'none', padding: '8px',
+    flex: 1, background: '#8b5cf6', color: 'white', border: 'none', padding: '8px',
     borderRadius: '6px', fontWeight: '600', cursor: 'pointer', fontSize: '12px'
   },
   discardButton: {

@@ -67,13 +67,13 @@ export default function AddPassword({ vault, masterPassword, onUpdate }) {
 
       {!open && (
         <div style={styles.container}>
-        <button
-          className="secondary"
-          onClick={() => setOpen(true)}
-          style={styles.openButton}
-        >
-          Add Password ➕
-        </button>
+          <button
+            className="secondary"
+            onClick={() => setOpen(true)}
+            style={styles.openButton}
+          >
+            Add Password ➕
+          </button>
         </div>
       )}
 
@@ -130,24 +130,24 @@ export default function AddPassword({ vault, masterPassword, onUpdate }) {
               <div style={{
                 ...styles.strengthFill,
                 width: `${Math.min((password.length / 12) * 100, 100)}%`,
-                background: password.length >= 12 ? '#10b981' : '#334155'
+                background: password.length >= 12 ? '#00d4ff' : '#2a3548'
               }}></div>
             </div>
 
             <button
               onClick={save}
-              disabled={saving || !site.trim() || !password.trim()}
+              disabled={saving || !site.trim() || !password.trim() || password.length < 12}
               style={{
                 ...styles.button,
-                opacity: (saving || !site.trim() || !password.trim()) ? 0.6 : 1,
-                cursor: (saving || !site.trim() || !password.trim()) ? 'default' : 'pointer'
+                opacity: (saving || !site.trim() || !password.trim() || password.length < 12) ? 0.6 : 1,
+                cursor: (saving || !site.trim() || !password.trim() || password.length < 12) ? 'default' : 'pointer'
               }}
             >
-          {saving ? "please wait..."    // ← This is checked FIRST
-  : password.length === 0 ? "save password"
-  : password.length < 4 ? "too short"
-  : password.length < 12 ? "almost there"
-  : "let's save it 👍"}
+              {saving ? "please wait..."    // ← This is checked FIRST
+                : password.length === 0 ? "save password"
+                  : password.length < 4 ? "too short"
+                    : password.length < 12 ? "almost there"
+                      : "let's save it 👍"}
             </button>
 
             {!saving && (
@@ -189,27 +189,27 @@ const keyframes = `
 
 const styles = {
 
- openButton: {
-  position: 'relative',
-  zIndex: 1,
-  width: '100%',
-  maxWidth: '280px',
-  padding: '14px',
-  background: '#10b981',         
-  borderRadius: '16px',
-  border: 'none',
-  color: '#ffffff',
-  fontSize: '15px',
-  fontWeight: '600',
-  boxShadow: '0 4px 16px rgba(16, 185, 129, 0.3)',
-  cursor: 'pointer',
-  fontFamily: '"Ubuntu","Segoe UI", Roboto, sans-serif'
-},
+  openButton: {
+    position: 'relative',
+    zIndex: 1,
+    width: '100%',
+    maxWidth: '280px',
+    padding: '14px',
+    background: '#00d4ff',
+    borderRadius: '16px',
+    border: 'none',
+    color: '#0a0f1a',
+    fontSize: '15px',
+    fontWeight: '600',
+    boxShadow: '0 4px 16px rgba(0, 212, 255, 0.3)',
+    cursor: 'pointer',
+    fontFamily: '"Ubuntu","Segoe UI", Roboto, sans-serif'
+  },
 
   container: {
     width: '100vh',
     height: '100%',
-    backgroundColor: '#0f172a',
+    backgroundColor: '#0a0f1a',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -231,7 +231,7 @@ const styles = {
     transform: 'translateX(-50%)',
     width: '300px',
     height: '300px',
-    backgroundColor: '#10b981',
+    backgroundColor: '#00d4ff',
     borderRadius: '50%',
     filter: 'blur(80px)',
     opacity: 0.15,
@@ -250,7 +250,7 @@ const styles = {
     fontSize: '32px',
     fontWeight: '700',
     margin: 0,
-    color: '#e2e8f0',
+    color: '#f8fafc',
     letterSpacing: '-0.02em'
   },
   status: {
@@ -271,10 +271,10 @@ const styles = {
   input: {
     width: '100%',
     padding: '12px 16px',
-    backgroundColor: '#1e293b',
+    backgroundColor: '#151d2e',
     borderRadius: '16px',
-    color: '#e2e8f0',
-    border: '1px solid #334155',
+    color: '#f8fafc',
+    border: '1px solid #2a3548',
     outline: 'none',
     fontSize: '14px',
     boxSizing: 'border-box',
@@ -295,7 +295,7 @@ const styles = {
     height: '4px',
     width: '100%',
     maxWidth: '200px',
-    backgroundColor: '#1e293b',
+    backgroundColor: '#151d2e',
     borderRadius: '10px',
     overflow: 'hidden'
   },
@@ -307,13 +307,13 @@ const styles = {
     width: '100%',
     maxWidth: '280px',
     padding: '14px',
-    background: '#10b981',
+    background: '#00d4ff',
     borderRadius: '16px',
     border: 'none',
-    color: '#ffffff',
+    color: '#0a0f1a',
     fontSize: '15px',
     fontWeight: '600',
-    boxShadow: '0 4px 16px rgba(16, 185, 129, 0.3)',
+    boxShadow: '0 4px 16px rgba(0, 212, 255, 0.3)',
     transition: 'all 0.3s ease'
   },
   toggleButton: {
