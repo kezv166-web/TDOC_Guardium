@@ -39,6 +39,10 @@ gulp.task('build', function (done) {
 // });
 
 gulp.task('copy-manifest', function () {
+  // Copy icons folder
+  gulp.src('./public/icons/**/*')
+    .pipe(gulp.dest(config.root + '/icons'));
+
   return gulp.src(
     [
       './manifest.json',
