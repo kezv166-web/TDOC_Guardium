@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { loadVault, saveVault } from "../utils/storage";
 import { encryptVault, decryptVault } from "../utils/CryptoService";
 import { verifyVault, writeVaultHash } from "../utils/web3Service";
+import createMetaMaskProvider from 'metamask-extension-provider';
 import Toast from './Toast';
 
 export default function Login({ onUnlock }) {
@@ -13,6 +14,7 @@ export default function Login({ onUnlock }) {
   const [processing, setProcessing] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState("error"); // Add toast type state
+  const [walletStatus, setWalletStatus] = useState("checking"); // "checking" | "metamask" | "other" | "none"
 
   const showToast = (msg, type = "error") => { // Accept type parameter
     setToastMessage(msg);
@@ -34,6 +36,25 @@ export default function Login({ onUnlock }) {
       }
     }
     init();
+  }, []);
+
+  // Check if wallet is installed (NOT connecting - just checking presence)
+  useEffect(() => {
+    function checkWallet() {
+      try {
+        // Just check if MetaMask is installed, don't connect
+        // This avoids interfering with the MetaMask popup during transactions
+        const provider = createMetaMaskProvider();
+        if (provider) {
+          setWalletStatus("metamask");
+        } else {
+          setWalletStatus("none");
+        }
+      } catch (e) {
+        setWalletStatus("none");
+      }
+    }
+    checkWallet();
   }, []);
 
   const handleCreateVault = async () => {
@@ -121,6 +142,14 @@ export default function Login({ onUnlock }) {
       <div style={styles.content}>
         <h1 style={styles.title}>{vaultExists ? "Welcome back!" : "New Vault"}</h1>
         <p style={styles.status}>{status}</p>
+
+        {/* WALLET BANNER */}
+        <div style={styles.walletBanner(walletStatus)}>
+          {walletStatus === "checking" && "Checking wallet..."}
+          {walletStatus === "metamask" && "🦊 MetaMask detected"}
+          {walletStatus === "other" && "🌐 Web3 wallet detected"}
+          {walletStatus === "none" && "⚠️ No wallet detected"}
+        </div>
 
         <div style={styles.inputWrapper}>
           <input
@@ -324,5 +353,26 @@ const styles = {
     borderTop: '3px solid #00d4ff',
     borderRadius: '50%',
     animation: 'spin 0.8s linear infinite'
-  }
+  },
+  walletBanner: (status) => ({
+    padding: '8px 16px',
+    borderRadius: '8px',
+    fontSize: '13px',
+    fontWeight: '500',
+    textAlign: 'center',
+    marginBottom: '12px',
+    backgroundColor: status === 'metamask' ? 'rgba(255, 165, 0, 0.15)' :
+      status === 'other' ? 'rgba(0, 212, 255, 0.15)' :
+        status === 'none' ? 'rgba(239, 68, 68, 0.15)' :
+          'rgba(148, 163, 184, 0.15)',
+    color: status === 'metamask' ? '#f59e0b' :
+      status === 'other' ? '#00d4ff' :
+        status === 'none' ? '#ef4444' :
+          '#94a3b8',
+    border: `1px solid ${status === 'metamask' ? 'rgba(255, 165, 0, 0.3)' :
+      status === 'other' ? 'rgba(0, 212, 255, 0.3)' :
+        status === 'none' ? 'rgba(239, 68, 68, 0.3)' :
+          'rgba(148, 163, 184, 0.3)'
+      }`
+  })
 };
